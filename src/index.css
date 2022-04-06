@@ -12,3 +12,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+/* .container {
+  display: grid;
+  grid-template: repeat(2,100px) / 30% 70%;
+  justify-items: center;
+  align-items: center;
+  background-color: aliceblue;
+}
+
+#sidebar {
+  background-color: coral;
+} */

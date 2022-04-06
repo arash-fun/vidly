@@ -1,10 +1,14 @@
 import React, { Component } from "react";
 import { getMovies } from "../services/fakeMovieService";
 import Like from "./common/like";
+import Pagination from "./common/pagination";
+import { pagination } from "../utils/paginate";
 
 class Movies extends Component {
   state = {
     movies: getMovies(),
+    currentPage: 1,
+    pageSize: 4,
   };
 
   handleDelete = (movie) => {
@@ -24,11 +28,32 @@ class Movies extends Component {
     this.setState({ movies });
   };
 
+  handlePageChange = (page) => {
+    this.setState({ currentPage: page });
+    // console.log("handlePageChange:", page);
+  };
+
   render() {
-    if (this.state.movies.length === 0) return <p>empty movies</p>;
+    const { length: count } = this.state.movies;
+    const { pageSize, currentPage, movies: allMovies } = this.state;
+
+    if (count === 0) return <p>empty movies</p>;
+
+    const movies = pagination(allMovies, currentPage, pageSize);
+
     return (
       <React.Fragment>
-        <p>showing {this.state.movies.length} movies in the DB</p>
+        {/* <div className="container">
+          <nav id="sidebar">
+            <div className="sidebar-header">
+              <h3>here is sidebar</h3>
+            </div>
+            <div id="content">
+              <h1>here is content</h1>
+            </div>
+          </nav>
+        </div> */}
+        <p>showing {count} movies in the DB</p>
         <table className="table">
           <thead>
             <tr>
@@ -40,7 +65,7 @@ class Movies extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.movies.map((movie) => (
+            {movies.map((movie) => (
               <tr key={movie._id}>
                 <td>{movie.title}</td>
                 <td>{movie.genre.name}</td>
@@ -67,6 +92,12 @@ class Movies extends Component {
             ))}
           </tbody>
         </table>
+        <Pagination
+          itemCount={count}
+          pageSize={pageSize}
+          currentPage={currentPage}
+          onPageChange={this.handlePageChange}
+        />
       </React.Fragment>
     );
   }

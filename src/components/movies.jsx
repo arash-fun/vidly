@@ -51,7 +51,24 @@ class Movies extends Component {
 
   handleSort = (path) => {
     // console.log("handleSort:", path);
-    this.setState({ sortColumn: { path, order: "asc" } });
+    const sortColumn = { ...this.state.sortColumn };
+    // console.log("path:", path);
+    // console.log("pre sortColumn:", sortColumn);
+
+    if (sortColumn.path === path) {
+      sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
+      // console.log("if sortColumn:", sortColumn);
+    } else {
+      sortColumn.path = path;
+      sortColumn.order = "asc"; //this make avoid newCol to be 'desc' for first time onClick
+
+      // console.log("else sortColumn:", sortColumn);
+    }
+
+    this.setState({ sortColumn });
+    console.log("post sortColumn:", this.state.sortColumn);
+
+    // this.setState({ sortColumn: { path, order: "asc" } });
   };
 
   render() {
@@ -76,7 +93,7 @@ class Movies extends Component {
     // console.log("sortColumn.order:", sortColumn.order);
 
     // console.log("filtered:", filtered);
-    const sorted = _.sortBy(filtered, [sortColumn.path], [sortColumn.order]);
+    const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
     // console.log("sorted:", sorted);
 
     const movies = pagination(sorted, currentPage, pageSize);

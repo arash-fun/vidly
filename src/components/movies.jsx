@@ -49,26 +49,9 @@ class Movies extends Component {
     this.setState({ selectedGenre: genre, currentPage: 1 });
   };
 
-  handleSort = (path) => {
-    // console.log("handleSort:", path);
-    const sortColumn = { ...this.state.sortColumn };
-    // console.log("path:", path);
-    // console.log("pre sortColumn:", sortColumn);
-
-    if (sortColumn.path === path) {
-      sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
-      // console.log("if sortColumn:", sortColumn);
-    } else {
-      sortColumn.path = path;
-      sortColumn.order = "asc"; //this make avoid newCol to be 'desc' for first time onClick
-
-      // console.log("else sortColumn:", sortColumn);
-    }
-
+  handleSort = (sortColumn) => {
     this.setState({ sortColumn });
-    console.log("post sortColumn:", this.state.sortColumn);
-
-    // this.setState({ sortColumn: { path, order: "asc" } });
+    // console.log("post sortColumn:", this.state.sortColumn);
   };
 
   render() {
@@ -119,6 +102,7 @@ class Movies extends Component {
             onLike={this.handleLike}
             onDelete={this.handleDelete}
             onSort={this.handleSort}
+            sortColumn={sortColumn}
           />
 
           <Pagination

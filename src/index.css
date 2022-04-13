@@ -13,14 +13,6 @@ code {
     monospace;
 }
 
-/* .container {
-  display: grid;
-  grid-template: repeat(2,100px) / 30% 70%;
-  justify-items: center;
-  align-items: center;
-  background-color: aliceblue;
+.clickable {
+  cursor: pointer;
 }
-
-#sidebar {
-  background-color: coral;
-} */

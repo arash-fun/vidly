@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 
-const Like = (props) => {
-  let classes = "fa fa-heart";
-  if (!props.liked) classes += "-o";
+const Like = ({ onLike, liked }) => {
+  // const { onLike, liked } = this.props;
+
+  let classes = "clickable fa fa-heart";
+  if (!liked) classes += "-o";
   return (
     <i
       className={classes}
       // className={this.state.like}
-      onClick={props.onLike}
-      // onClick={() => this.handleLike(this.props.movie.title)}
+      onClick={onLike}
+      // onClick={() => this.handleLike(this.movie.title)}
       aria-hidden="true"
-      style={{ cursor: "pointer " }}
     ></i>
   );
 };
